@@ -112,7 +112,8 @@ void Game::SetupResources(void){
 
     // Create a torus
     resman_.CreateTorus("TorusMesh");
-
+	//Create a Cylinder
+	resman_.CreateCylinder("CylinderMesh");
 
 	// Load material to be applied to torus
 	std::string filename = std::string(MATERIAL_DIRECTORY) + std::string("/toon_shader");
@@ -152,11 +153,28 @@ void Game::SetupScene(void){
 	torus2->Scale(glm::vec3(1.5, 1.5, 1.5));
 	torus2->Translate(glm::vec3(0.0, 0.0, 0.0));
 
+	game::SceneNode *turretBase = CreateInstance("TurretBase", "CylinderMesh", "ShinyBlueMaterial");
+	// Scale the instance
+	turretBase->Scale(glm::vec3(1.5, 0.5, 1.5));
+	turretBase->Translate(glm::vec3(0.0, -1.0, 1.0));
+
+	game::SceneNode *turretHead = CreateInstance("TurretHead", "CylinderMesh", "ShinyBlueMaterial");
+	// Scale the instance
+	turretHead->Scale(glm::vec3(2.5, 0.25, 2.5));
+	turretHead->Translate(glm::vec3(0.0, -0.5, 1.0));
+
+	game::SceneNode *turretCannon = CreateInstance("TurretCannon", "CylinderMesh", "ShinyBlueMaterial");
+	// Scale the instance
+	turretCannon->Scale(glm::vec3(0.5, 0.75, 0.5));
+	turretCannon->Translate(glm::vec3(0.0, -0.5, 1.5));
+	glm::quat rotation = glm::angleAxis(glm::pi<float>() / 2.0f, glm::vec3(1.0, 0.0, 0.0));
+	turretCannon->Rotate(rotation);
+
     // Create an instance of the textured cube
     game::SceneNode *cube = CreateInstance("CubeInstance1", "CubeMesh", "TexturedMaterial", "Checker");
     // Adjust the instance
     cube->Scale(glm::vec3(0.7, 0.7, 0.7));
-    glm::quat rotation = glm::angleAxis(-45.0f * -glm::pi<float>()/180.0f, glm::vec3(1.0, 0.0, 0.0));
+    rotation = glm::angleAxis(-45.0f * -glm::pi<float>()/180.0f, glm::vec3(1.0, 0.0, 0.0));
     cube->Rotate(rotation);
     rotation = glm::angleAxis(-45.0f * -glm::pi<float>()/180.0f, glm::vec3(0.0, 1.0, 0.0));
     cube->Rotate(rotation);
@@ -182,6 +200,13 @@ void Game::MainLoop(void){
 
 				//Animate 2nd torus
 				node = scene_.GetNode("TorusInstance2");
+				node->Rotate(rotation);
+
+				node = scene_.GetNode("TurretBase");
+				node->Rotate(rotation);
+				node = scene_.GetNode("TurretHead");
+				node->Rotate(rotation);
+				node = scene_.GetNode("TurretCannon");
 				node->Rotate(rotation);
 
                 // Animate the cube
