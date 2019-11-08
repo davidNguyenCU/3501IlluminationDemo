@@ -9,16 +9,16 @@ in vec3 light_pos;
 
 // Material attributes (constants)
 vec4 ambient_color = vec4(0.0, 0.0, 1.0, 1.0);
-vec4 diffuse_color = vec4(0.0, 0.0, 0.7, 1.0);
+vec4 diffuse_color = vec4(1.0, 0.0, 0.7, 1.0);
 vec4 specular_color = vec4(0.8, 0.5, 0.9, 1.0);
 float phong_exponent = 64.0;
 float Ia = 0.2; // Ambient light amount
 
 // Material attributes (constants) for 2nd light
-vec4 ambient_color2 = vec4(0.0, 0.0, 1.0, 1.0);
-vec4 diffuse_color2 = vec4(0.0, 0.0, 0.7, 1.0);
-vec4 specular_color2 = vec4(0.8, 0.5, 0.9, 1.0);
-float phong_exponent2 = 128.0;
+vec4 ambient_color2 = vec4(0.25, 0.5, 1.0, 1.0);
+vec4 diffuse_color2 = vec4(1.0, 0.0, 0.1, 1.0);
+vec4 specular_color2 = vec4(0.2, 0.5, 0.9, 1.0);
+float phong_exponent2 = 1.0;
 float Ia2 = 0.4; // Ambient light amount
 vec3 light2_vec = vec3(0.0, 0.5, -1.0);
 

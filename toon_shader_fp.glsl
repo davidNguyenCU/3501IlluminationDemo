@@ -8,8 +8,8 @@ in vec3 normal_interp;
 in vec3 light_pos;
 
 // Material attributes (constants)
-vec4 ambient_color = vec4(0.0, 0.0, 1.0, 1.0);
-vec4 diffuse_color = vec4(0.0, 0.0, 0.7, 1.0);
+vec4 ambient_color = vec4(0.0, 1.0, 0.0, 1.0);
+vec4 diffuse_color = vec4(1.0, 0.0, 0.0, 1.0);
 vec4 specular_color = vec4(0.8, 0.5, 0.9, 1.0);
 float phong_exponent = 64.0;
 float Ia = 0.2; // Ambient light amount
@@ -84,8 +84,16 @@ void main()
 	}
 
 	
+	
     // Assign illumination to the fragment
-    gl_FragColor = Ia*ambient_color + Id*diffuse_color + Is*specular_color;
+	
+	if (dot(N, V) > 0.4) {
+		gl_FragColor = Ia * ambient_color + Id * diffuse_color + Is * specular_color;
+	}
+	else {
+		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+	}
+
 			  
     // For debug, we can display the different values
 	
